@@ -1,2 +1,2 @@
 # doggy-heaven
-For remember pets who have passed on
+For remembering pets who have passed on
