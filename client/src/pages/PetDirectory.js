@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import PetModal from "../components/PetModal";
 
 const PetDirectory = () => {
   const [pets, setPets] = useState([]);
   const [search, setSearch] = useState("");
   const [petType, setPetType] = useState("");
   const [breed, setBreed] = useState("");
+  const [selectedPet, setSelectedPet] = useState(null);
 
   useEffect(() => {
     const fetchPets = async () => {
@@ -44,6 +46,14 @@ const PetDirectory = () => {
     );
   });
 
+  const handlePetClick = (pet) => {
+    setSelectedPet(pet);
+  };
+
+  const closeModal = () => {
+    setSelectedPet(null);
+  };
+
   return (
     <div className="container mx-auto p-4">
       <h2 className="text-3xl font-bold text-center mb-4 text-blue-700">
@@ -74,11 +84,15 @@ const PetDirectory = () => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {filteredPets.map((pet) => (
-          <div key={pet._id} className="grid-item">
+          <div
+            key={pet._id}
+            className="grid-item"
+            onClick={() => handlePetClick(pet)}
+          >
             <h3 className="text-xl font-bold mb-2 text-blue-700">{pet.name}</h3>
             {pet.files &&
               pet.files.slice(0, 1).map((file, index) => {
-                const filePath = `http://localhost:5000/${file}`;
+                const filePath = `http://localhost:5000/${file}`; // Correctly form the image path
                 console.log("Image/Video path:", filePath);
                 return file.endsWith(".mp4") ? (
                   <video
@@ -108,6 +122,7 @@ const PetDirectory = () => {
           </div>
         ))}
       </div>
+      {selectedPet && <PetModal pet={selectedPet} onClose={closeModal} />}
     </div>
   );
 };

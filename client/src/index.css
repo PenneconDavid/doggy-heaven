@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Background styling */
 body {
   @apply bg-blue-100;
 }
@@ -34,4 +35,9 @@ button {
 .img-container,
 .video-container {
   @apply rounded-lg shadow mb-4;
+}
+
+.bg-sky {
+  background: url("../public/images/OIG4fghf.jpg") no-repeat center center fixed;
+  background-size: cover;
 }
